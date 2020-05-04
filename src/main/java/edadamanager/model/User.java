@@ -13,6 +13,7 @@ import java.util.List;
 public class User {
     private Integer id;
 
+    private Integer age;
     private String login;
     private String hashpass;
     private Double weight;

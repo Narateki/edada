@@ -21,7 +21,9 @@ import java.util.Map;
 public class Recipe {
     private Integer id;
 
+    @NotBlank(message = "Name is empty")
     private String name;
+    @NotBlank(message = "Decription is empty")
     private String description;
     private Category category;
     private Map<Ingredient, Double> ingredients;

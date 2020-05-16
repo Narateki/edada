@@ -32,9 +32,9 @@ public class RecipeService {
         recipe.setName(name);
         recipe.setDescription(description);
         recipe.setCategory(category);
-        recipe.setIngredients(ingredients);
-        recipe.setInventories(inventories);
-        recipe.setReviews(reviews);
+//        recipe.setIngredients(ingredients);
+//        recipe.setInventories(inventories);
+//        recipe.setReviews(reviews);
 
         return recipe;
     }

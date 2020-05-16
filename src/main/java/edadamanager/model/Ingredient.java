@@ -6,10 +6,10 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Component
@@ -24,5 +24,13 @@ public class Ingredient {
 
     private String name;
     private Integer calory;
-//    private Units units;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "unit_id")
+    private Units units;
+
+    public Ingredient(String name, Integer calory) {
+        this.name = name;
+        this.calory = calory;
+    }
 }

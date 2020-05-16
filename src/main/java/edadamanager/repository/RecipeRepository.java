@@ -17,7 +17,7 @@ public class RecipeRepository {
     }
 
 
-    public List<String> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return new LinkedList(Arrays.asList("tomato", "potato", "chiken", "fish", "milk"));
 
     }

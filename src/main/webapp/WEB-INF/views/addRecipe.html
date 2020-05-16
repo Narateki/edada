@@ -25,8 +25,36 @@
             <span th:if="${#fields.hasErrors('name')}"
                   th:errors="${recipies.name}" class="text-danger"></span>
         </div>
+        <div class="form-group">
+            <label for="res-descript">Description</label>
+            <input id="res-descript" class="form-control"
+                   th:field="*{description}"/>
+            <span th:if="${#fields.hasErrors('description')}"
+                  th:errors="${recipies.description}" class="text-danger"></span>
+        </div>
+              method="post" th:object="${ingredients}">
+            <div class="form-group">
+                <label for="continents">Continents</label>
+                <select id="continents" class="form-control" th:field="*{ingredients}">
+                    <option th:each="ing:${ingredients}"
+                            th:value="${ing}"
+                            th:text="${ing}">
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+            <label for="res-category">Description</label>
+            <input id="res-category" class="form-control"
+                   th:field="*{category}"/>
+        </div>
+        <div class="form-group">
+            <label for="res-invent">Description</label>
+            <input id="res-invent" class="form-control"
+                   th:field="*{inventories}"/>
+        </div>
 
-        <button type="submit">ADD MY RECIPE</button>
+
+        <button type="submit">Добавить</button>
     </form>
 </div>
 </body>

@@ -40,6 +40,9 @@ public class RecipeController {
         recipeService.save(recipe);
         return "redirect:/recipies/findall";
     }
-
+    @RequestMapping("/load")
+    public String loadAll(){
+        return "recipies";
+    }
 }
 

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<div th:replace="../views/header :: header"></div>
+
+<div class="container">
+    <h2 class="text-danger">Регистрация пользователя</h2>
+    <!--/*@thymesVar id="users" type="edadamanager.model.User"*/-->
+    <form action="#" th:action="@{/users/add}"
+          method="post" th:object="${users}">
+        <div class="form-group">
+            <label for="user-log">Логин</label>
+            <input id="user-log" class="form-control"
+                   th:field="*{login}"/>
+            <span th:if="${#fields.hasErrors('login')}"
+                  th:errors="${users.login}" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Пол</label>
+        <select th:field="*{sex}">
+            <option th:value="'M'" th:text="Мужской"></option>
+            <option th:value="'F'" th:text="Женский"></option>
+        </select>
+        </div>
+
+        <div class="form-group">
+            <label for="user-w">Вес</label>
+            <input id="user-w" class="form-control"
+                   th:field="*{weight}"/>
+            <span th:if="${#fields.hasErrors('weight')}"
+                  th:errors="${users.weight}" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="user-h">Рост</label>
+            <input id="user-h" class="form-control"
+                   th:field="*{height}"/>
+            <span th:if="${#fields.hasErrors('height')}"
+                  th:errors="${users.height}" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="user-birth">Дата рождения</label>
+            <input id="user-birth" class="form-control"
+                   th:field="*{birthday}"/>
+            <span th:if="${#fields.hasErrors('birthday')}"
+                  th:errors="${users.birthday}" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="user-pass">Пароль</label>
+            <input id="user-pass" class="form-control"
+                   th:field="*{hashpass}"/>
+            <span th:if="${#fields.hasErrors('hashpass')}"
+                  th:errors="${users.hashpass}" class="text-danger"></span>
+        </div>
+
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+</div>
+</body>
+</html>

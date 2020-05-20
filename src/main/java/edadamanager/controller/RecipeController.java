@@ -32,6 +32,7 @@ public class RecipeController {
         return "addRecipe";
     }
 
+
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String saveRecipe(@Valid Recipe recipe, BindingResult errors, Model model) {
         if (errors.hasErrors())

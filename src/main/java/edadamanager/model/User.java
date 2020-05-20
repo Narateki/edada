@@ -4,12 +4,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -27,9 +30,12 @@ public class User {
     private Integer id;
 
     private String login;
+
     private String hashpass;
     private Double weight;
     private Double height;
+
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate birthday;
     private Boolean sex; // 0 - male, 1 - female
 //    private List<Ration> rations;

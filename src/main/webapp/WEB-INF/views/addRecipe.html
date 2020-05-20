@@ -14,48 +14,60 @@
 
 <div th:replace="../views/header :: header"></div>
 
+
 <div class="container">
-    <h2 class="text-danger">Add recipe</h2>
+    <h2 class="text-danger">Добавить новый рецепт</h2>
+
     <form action="#" th:action="@{/recipies/add}"
           method="post" th:object="${recipies}">
         <div class="form-group">
-            <label for="res-name">Name</label>
+            <label for="res-name">Название</label>
             <input id="res-name" class="form-control"
                    th:field="*{name}"/>
             <span th:if="${#fields.hasErrors('name')}"
                   th:errors="${recipies.name}" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label for="res-descript">Description</label>
+            <label for="res-descript">Описание</label>
             <input id="res-descript" class="form-control"
                    th:field="*{description}"/>
             <span th:if="${#fields.hasErrors('description')}"
                   th:errors="${recipies.description}" class="text-danger"></span>
         </div>
-              method="post" th:object="${ingredients}">
-            <div class="form-group">
-                <label for="continents">Continents</label>
-                <select id="continents" class="form-control" th:field="*{ingredients}">
-                    <option th:each="ing:${ingredients}"
-                            th:value="${ing}"
-                            th:text="${ing}">
-                    </option>
-                </select>
-            </div>
-            <div class="form-group">
-            <label for="res-category">Description</label>
-            <input id="res-category" class="form-control"
-                   th:field="*{category}"/>
-        </div>
-        <div class="form-group">
-            <label for="res-invent">Description</label>
-            <input id="res-invent" class="form-control"
-                   th:field="*{inventories}"/>
-        </div>
 
 
+        <!--/*@thymesVar id="category" type="edadamanager.model.Category"*/-->
+        <div class="form-group" th:object="${category}">
+            <label>Категория</label>
+            <select class="form-control">
+                <option value="">Выберите категорию рецепта</option>
+                <option th:each="categor: ${category}"
+                        th:value="${category.id}"
+                        th:text="${category.id}+' : '+${category.name}"></option>
+            </select>
+        </div>
+        <!--/*@thymesVar id="inventory" type="edadamanager.model.Inventory"*/-->
+        <div class="form-group" th:object="${inventory}">
+            <label>Инвентарь</label>
+            <select class="form-control">
+                <option value="">Выберите необходимый инвентарь</option>
+                <option th:each="inv: ${inventory}"
+                        th:value="${inv.id}"
+                        th:text="${inv.id}+' : '+${inv.name}"></option>
+            </select>
+        </div>
+        <!--/*@thymesVar id="ingredient" type="edadamanager.model.Ingredient"*/-->
+        <div class="form-group" th:object="${ingredient}">
+            <label>Ингредиенты</label>
+            <select class="form-control">
+                <option value="">Выберите необходимые ингредиенты</option>
+                <option th:each="ing: ${ingredient}"
+                        th:value="${ing.id}"
+                        th:text="${ing.id}+' : '+${ing.name}"></option>
+            </select>
+        </div>
         <button type="submit">Добавить</button>
     </form>
-</div>
+      </div>
 </body>
 </html>

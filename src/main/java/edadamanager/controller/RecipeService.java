@@ -23,6 +23,10 @@ public class RecipeService {
     private RecipeRepository recipeRepository;
 
     public List<Recipe> findAll() {
+        List<Recipe> r = recipeRepository.findAll();
+        for (Recipe rr : r) {
+            System.out.println(rr);
+        }
         return recipeRepository.findAll();
 //        return this.recipies;
     }

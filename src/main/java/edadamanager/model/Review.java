@@ -29,5 +29,6 @@ public class Review {
 
     public Review(User author) {
         this.author = author;
+        this.rate = 4;
     }
 }

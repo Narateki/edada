@@ -37,7 +37,6 @@ public class RecipeController {
     public String saveRecipe(@Valid Recipe recipe, BindingResult errors, Model model) {
         if (errors.hasErrors())
             return "addRecipe";
-        recipe.setId(123);
         recipeService.save(recipe);
         return "redirect:/recipies/findall";
     }

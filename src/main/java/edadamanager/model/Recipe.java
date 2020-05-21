@@ -39,16 +39,9 @@ public class Recipe {
     private Category category;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "recipes_ingredients",
-            joinColumns = @JoinColumn(referencedColumnName = "id", name = "recipeId"),
-            inverseJoinColumns = @JoinColumn(referencedColumnName = "id", name = "ingredientId"))
-    private Set<Ingredient> ingredients = new HashSet<>();
-
-//    @Embedded
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "ingredientsInRecipe_id")
-    private Set<IngredientInRecipe> ingredientsInRecipe = new HashSet<>();
+    private Set<IngredientInRecipe> ingredients = new HashSet<>();
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(cascade = CascadeType.ALL)
@@ -70,26 +63,13 @@ public class Recipe {
 
     public Recipe(){}
 
-    public Recipe(String name, String description, Category category, Set<Ingredient> ingredients, Set<Inventory> inventories, Set<Review> reviews) {
-        this.name = name;
-        this.description = description;
-        this.category = category;
-        this.ingredients = ingredients;
-        for (Ingredient ingredient: ingredients) {
-            IngredientInRecipe ingr = new IngredientInRecipe(ingredient, 10.);
-            ingredientsInRecipe.add(ingr);
-        }
-        this.inventories = inventories;
-        this.reviews = reviews;
-    }
-
     /**
      * Вычисление калорийности всего рецепта в первоначальном виде
      */
     public Double calcCalory() {
-        Double cal = 0.;
-        for (Ingredient ingr: ingredients) {
-            cal+=(ingr.getCalory()*amount);
+        double cal = 0.;
+        for (IngredientInRecipe ingr: ingredients) {
+            cal+=(ingr.getIngredient().getCalory()*amount);
         }
         return cal;
     }
@@ -103,8 +83,8 @@ public class Recipe {
         Map<Ingredient, Double> amounts= new HashMap<>();
         Double recCalory = calcCalory();
         Double proportion = calory/recCalory;
-        for (Ingredient ingredient: ingredients) {
-            amounts.put(ingredient, amount*proportion);
+        for (IngredientInRecipe ingredient: ingredients) {
+            amounts.put(ingredient.getIngredient(), ingredient.getAmount()*proportion);
         }
         return amounts;
     }
@@ -117,6 +97,7 @@ public class Recipe {
         for (Review review: reviews) {
             sum+=review.getRate();
         }
+        if (reviews.size() == 0) return 0.;
         return  sum/reviews.size();
     }
 
@@ -125,17 +106,15 @@ public class Recipe {
      */
     public String ingredietsToString() {
         StringBuilder s = new StringBuilder();
-        for (IngredientInRecipe ingredient: ingredientsInRecipe) {
-            //s.append(ingredient.getIngredient().toString());
-            s.append("aa");
+        for (IngredientInRecipe ingredient: ingredients) {
+            s.append(ingredient.getIngredient().toString());
             s.append(", ");
         }
-        return String.valueOf(ingredientsInRecipe.size());
-        //return s.substring(0, s.length()-2);
+        return s.substring(0, s.length()-2);
     }
 
     /**
-     * Преобразование массива инвенторя к строке
+     * Преобразование массива инвентаря к строке
      */
     public String inventoriesToString() {
         StringBuilder s = new StringBuilder();
@@ -148,18 +127,18 @@ public class Recipe {
 
     public Recipe(String name){
         this.name = name;
-        this.description = "olala";
-        this.category = new Category("cat");
+        this.description = "nonono";
+        this.category = new Category("catt");
         Ingredient ingredient = new Ingredient("ingr", 50);
-        Ingredient ingredient2 = new Ingredient("ingr2", 50);
-        Set<Ingredient> ingredients = new HashSet<>();
-        ingredients.add(ingredient);
-        ingredients.add(ingredient2);
-        this.ingredients = ingredients;
+        Ingredient ingredient2 = new Ingredient("ingr2", 90);
+        Set<Ingredient> ingredientt = new HashSet<>();
+        ingredientt.add(ingredient);
+        ingredientt.add(ingredient2);
 
-        for (Ingredient ingredientt: ingredients) {
-            IngredientInRecipe ingr = new IngredientInRecipe(ingredientt, 10.);
-            ingredientsInRecipe.add(ingr);
+
+        for (Ingredient ingredienttt: ingredientt) {
+            IngredientInRecipe ingr = new IngredientInRecipe(ingredienttt, 10.);
+            ingredients.add(ingr);
         }
 
         Inventory inventory = new Inventory("inv1");

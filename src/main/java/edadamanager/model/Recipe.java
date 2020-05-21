@@ -57,9 +57,6 @@ public class Recipe {
             inverseJoinColumns = @JoinColumn(name = "review_ID"))
     private Set<Review> reviews = new HashSet<>();
 
-    // Вот это потом заменить на количество каждого ингридиента
-    @Transient
-    Double amount = 5.;
 
     public Recipe(){}
 
@@ -69,7 +66,7 @@ public class Recipe {
     public Double calcCalory() {
         double cal = 0.;
         for (IngredientInRecipe ingr: ingredients) {
-            cal+=(ingr.getIngredient().getCalory()*amount);
+            cal+=(ingr.getIngredient().getCalory()*ingr.getAmount());
         }
         return cal;
     }
@@ -82,7 +79,8 @@ public class Recipe {
     public Map<Ingredient, Double> calcIngredientsAmount(Double calory) {
         Map<Ingredient, Double> amounts= new HashMap<>();
         Double recCalory = calcCalory();
-        Double proportion = calory/recCalory;
+        Double proportion = 0.;
+        if (recCalory != 0) proportion = calory/recCalory;
         for (IngredientInRecipe ingredient: ingredients) {
             amounts.put(ingredient.getIngredient(), ingredient.getAmount()*proportion);
         }
@@ -97,7 +95,7 @@ public class Recipe {
         for (Review review: reviews) {
             sum+=review.getRate();
         }
-        if (reviews.size() == 0) return 0.;
+        if (reviews.size() == 0 || sum == 0) return 0.;
         return  sum/reviews.size();
     }
 
@@ -110,6 +108,7 @@ public class Recipe {
             s.append(ingredient.getIngredient().toString());
             s.append(", ");
         }
+        if (s.length() <= 2) return "";
         return s.substring(0, s.length()-2);
     }
 
@@ -122,6 +121,7 @@ public class Recipe {
             s.append(inventory.toString());
             s.append(", ");
         }
+        if (s.length() <= 2) return "";
         return s.substring(0, s.length()-2);
     }
 

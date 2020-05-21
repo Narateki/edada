@@ -28,7 +28,7 @@ public class HomeController {
 
     @RequestMapping(value = "/")
     public String home(Model model) {
-//        model.addAttribute("title", "Поехали!");
+        model.addAttribute("title", "Сайт с рецептами приветствует вас!");
         Recipe recipe = new Recipe("rec9");
         recipeService.save(recipe);
 //        Category category1 = new Category("Суп");

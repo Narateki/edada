@@ -8,7 +8,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-
+    <script th:src="@{/resources/global.js}"></script>
 </head>
 <body>
 
@@ -29,44 +29,44 @@
         </div>
         <div class="form-group">
             <label for="res-descript">Описание</label>
-            <input id="res-descript" class="form-control"
-                   th:field="*{description}"/>
+            <textarea id="res-descript" class="form-control"
+                   th:field="*{description}"></textarea>
             <span th:if="${#fields.hasErrors('description')}"
                   th:errors="${recipies.description}" class="text-danger"></span>
         </div>
 
-
-        <!--/*@thymesVar id="category" type="edadamanager.model.Category"*/-->
-        <div class="form-group" th:object="${category}">
+        <div class="form-group">
             <label>Категория</label>
-            <select class="form-control">
-                <option value="">Выберите категорию рецепта</option>
+            <select class="form-control" th:field="*{category}">
                 <option th:each="categor: ${category}"
-                        th:value="${category.id}"
-                        th:text="${category.id}+' : '+${category.name}"></option>
+                        th:value="${categor}"
+                        th:text="${categor}"></option>
             </select>
         </div>
-        <!--/*@thymesVar id="inventory" type="edadamanager.model.Inventory"*/-->
-        <div class="form-group" th:object="${inventory}">
+
+<!--        Тут должен быть множественный выбор-->
+<!--        по анологии со следующим комментарием, но без количества-->
+        <div class="form-group">
             <label>Инвентарь</label>
             <select class="form-control">
-                <option value="">Выберите необходимый инвентарь</option>
                 <option th:each="inv: ${inventory}"
-                        th:value="${inv.id}"
-                        th:text="${inv.id}+' : '+${inv.name}"></option>
+                        th:value="${inv}"
+                        th:text="${inv}"></option>
             </select>
         </div>
-        <!--/*@thymesVar id="ingredient" type="edadamanager.model.Ingredient"*/-->
-        <div class="form-group" th:object="${ingredient}">
+        <!--        Здесь не подойдет обычный селект, нужно ведь ещё вводить количество каждого ингредиента-->
+        <!--        Можно открывать список ингредиентов табличкой и у каждого добавлять поле ввода для double-->
+        <!--        Всю таблицу передавать на сервер(в контроллер) из контроллера в сервис рецепта и там уже -->
+        <!--        приводить в вид который требуется и сохранять-->
+        <div class="form-group">
             <label>Ингредиенты</label>
             <select class="form-control">
-                <option value="">Выберите необходимые ингредиенты</option>
-                <option th:each="ing: ${ingredient}"
-                        th:value="${ing.id}"
-                        th:text="${ing.id}+' : '+${ing.name}"></option>
+                <option th:each="ing: ${ingredients}"
+                        th:value="${ing}"
+                        th:text="${ing}"></option>
             </select>
         </div>
-        <button type="submit">Добавить</button>
+        <button type="submit" class="btn btn-primary">Добавить</button>
     </form>
       </div>
 </body>

@@ -16,7 +16,7 @@ import java.util.Map;
 @Service("recipeService")
 public class RecipeService {
 
-    private List<Recipe> recipies = new LinkedList();
+//    private List<Recipe> recipies = new LinkedList();
 
     // Добавлем репозиторий с рецептами
     @Autowired
@@ -33,22 +33,22 @@ public class RecipeService {
 
     public void save(Recipe recipe) {
         recipeRepository.save(recipe);
-        this.recipies.add(recipe);
+//        this.recipies.add(recipe);
     }
 
-    private Recipe createRecipe(Integer id, String name, String description, Category category,Map<Ingredient,
-            Double> ingredients, List<Inventory> inventories, List<Review> reviews) {
-
-        Recipe recipe = new Recipe();
-        recipe.setId(id);
-        recipe.setName(name);
-        recipe.setDescription(description);
-        recipe.setCategory(category);
-//        recipe.setIngredients(ingredients);
-//        recipe.setInventories(inventories);
-//        recipe.setReviews(reviews);
-
-        return recipe;
-    }
+//    private Recipe createRecipe(Integer id, String name, String description, Category category,Map<Ingredient,
+//            Double> ingredients, List<Inventory> inventories, List<Review> reviews) {
+//
+//        Recipe recipe = new Recipe();
+//        recipe.setId(id);
+//        recipe.setName(name);
+//        recipe.setDescription(description);
+//        recipe.setCategory(category);
+////        recipe.setIngredients(ingredients);
+////        recipe.setInventories(inventories);
+////        recipe.setReviews(reviews);
+//
+//        return recipe;
+//    }
 
 }

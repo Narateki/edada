@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 
 </head>
@@ -7,7 +8,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="header">
-    <a class="navbar-brand" href="#">Edada</a>
+    <a class="navbar-brand" th:href="@{/}">Edada</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -22,9 +23,25 @@
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/recipies/add}">Добавить рецепт</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/users/add}">Зарегистрироваться</a>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <form class="form-inline">
+                    <button class="btn btn-sm align-middle btn-outline-secondary" id="username-btn" type="button" sec:authentication="name">
+                        Аноним
+                    </button>
+                    <a class="nav-link" id="logout" href="#">Выйти</a>
+                </form>
+                <form id="logout-form" th:action="@{/users/logout}" method="post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                </form>
             </li>
+
+            <li class="nav-item" sec:authorize="!isAuthenticated()">
+                <a class="nav-link" th:href="@{/users/login}">Вход</a>
+            </li>
+            <li class="nav-item" sec:authorize="!isAuthenticated()">
+                <a class="nav-link" th:href="@{/users/register}">Регистрация</a>
+            </li>
+
         </ul>
     </div>
 </nav>

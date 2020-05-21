@@ -15,7 +15,6 @@ import javax.persistence.Id;
 @Component
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class Category {
     @Id
@@ -26,5 +25,10 @@ public class Category {
 
     public Category(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

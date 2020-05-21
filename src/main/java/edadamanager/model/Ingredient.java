@@ -15,7 +15,6 @@ import java.util.Set;
 @Component
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class Ingredient {
     @Id
@@ -32,5 +31,10 @@ public class Ingredient {
     public Ingredient(String name, Integer calory) {
         this.name = name;
         this.calory = calory;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

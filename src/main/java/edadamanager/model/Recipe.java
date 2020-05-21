@@ -45,6 +45,11 @@ public class Recipe {
             inverseJoinColumns = @JoinColumn(referencedColumnName = "id", name = "ingredientId"))
     private Set<Ingredient> ingredients = new HashSet<>();
 
+//    @Embedded
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ingredientsInRecipe_id")
+    private Set<IngredientInRecipe> ingredientsInRecipe = new HashSet<>();
+
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "recipes_inventories",
@@ -70,6 +75,10 @@ public class Recipe {
         this.description = description;
         this.category = category;
         this.ingredients = ingredients;
+        for (Ingredient ingredient: ingredients) {
+            IngredientInRecipe ingr = new IngredientInRecipe(ingredient, 10.);
+            ingredientsInRecipe.add(ingr);
+        }
         this.inventories = inventories;
         this.reviews = reviews;
     }
@@ -111,15 +120,48 @@ public class Recipe {
         return  sum/reviews.size();
     }
 
+    /**
+     * Преобразование массива ингрединентов к строке
+     */
+    public String ingredietsToString() {
+        StringBuilder s = new StringBuilder();
+        for (IngredientInRecipe ingredient: ingredientsInRecipe) {
+            //s.append(ingredient.getIngredient().toString());
+            s.append("aa");
+            s.append(", ");
+        }
+        return String.valueOf(ingredientsInRecipe.size());
+        //return s.substring(0, s.length()-2);
+    }
+
+    /**
+     * Преобразование массива инвенторя к строке
+     */
+    public String inventoriesToString() {
+        StringBuilder s = new StringBuilder();
+        for (Inventory inventory: inventories) {
+            s.append(inventory.toString());
+            s.append(", ");
+        }
+        return s.substring(0, s.length()-2);
+    }
+
     public Recipe(String name){
         this.name = name;
         this.description = "olala";
         this.category = new Category("cat");
         Ingredient ingredient = new Ingredient("ingr", 50);
+        Ingredient ingredient2 = new Ingredient("ingr2", 50);
         Set<Ingredient> ingredients = new HashSet<>();
         ingredients.add(ingredient);
+        ingredients.add(ingredient2);
         this.ingredients = ingredients;
-//
+
+        for (Ingredient ingredientt: ingredients) {
+            IngredientInRecipe ingr = new IngredientInRecipe(ingredientt, 10.);
+            ingredientsInRecipe.add(ingr);
+        }
+
         Inventory inventory = new Inventory("inv1");
         Set<Inventory> inventories = new HashSet<>();
         inventories.add(inventory);

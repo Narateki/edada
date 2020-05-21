@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="edada@localhost" uuid="2e601858-ca05-4624-ac3c-b5b7d383ebf9">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/edada?serverTimezone=Asia/Irkutsk</jdbc-url>
+      <vm-env>
+        <property name="time_zone" value="'-3:00'" />
+      </vm-env>
+    </data-source>
+  </component>
+</project>

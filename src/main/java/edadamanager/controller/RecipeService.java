@@ -1,6 +1,8 @@
 package edadamanager.controller;
 
 import edadamanager.model.*;
+import edadamanager.repository.RecipeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,11 +18,17 @@ public class RecipeService {
 
     private List<Recipe> recipies = new LinkedList();
 
+    // Добавлем репозиторий с рецептами
+    @Autowired
+    private RecipeRepository recipeRepository;
+
     public List<Recipe> findAll() {
-        return this.recipies;
+        return recipeRepository.findAll();
+//        return this.recipies;
     }
 
     public void save(Recipe recipe) {
+        recipeRepository.save(recipe);
         this.recipies.add(recipe);
     }
 

@@ -22,7 +22,6 @@ import java.util.List;
 @Component
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class User {
     @Id
@@ -60,5 +59,10 @@ public class User {
      */
     public Double calcBase() {
         return (9.99*weight+6.25*height-4.92*getAge())*1.2;
+    }
+
+    @Override
+    public String toString() {
+        return login;
     }
 }

@@ -19,7 +19,7 @@ public class HomeController {
 //    private RecipeService recipeService;
 
     @Autowired
-    private RecipeRepository repo;
+    private RecipeService recipeService;
     @Autowired
     private CategoryRepository categoryRepository;
     @Autowired
@@ -29,8 +29,8 @@ public class HomeController {
     @RequestMapping(value = "/")
     public String home(Model model) {
 //        model.addAttribute("title", "Поехали!");
-//        Recipe recipe = new Recipe("rec1");
-//        repo.save(recipe);
+        Recipe recipe = new Recipe("rec9");
+        recipeService.save(recipe);
 //        Category category1 = new Category("Суп");
 //        categoryRepository.save(category1);
 //        Category category2 = new Category("Каша");

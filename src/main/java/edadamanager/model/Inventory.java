@@ -16,7 +16,6 @@ import javax.persistence.Id;
 @Component
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class Inventory {
     @Id
@@ -27,5 +26,10 @@ public class Inventory {
 
     public Inventory(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

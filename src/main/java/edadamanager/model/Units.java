@@ -16,7 +16,6 @@ import javax.persistence.Id;
 @Component
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class Units {
     @Id
@@ -24,4 +23,9 @@ public class Units {
     private Integer id;
 
     private String name;
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

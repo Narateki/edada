@@ -29,8 +29,8 @@ public class HomeController {
     @RequestMapping(value = "/")
     public String home(Model model) {
         model.addAttribute("title", "Сайт с рецептами приветствует вас!");
-        Recipe recipe = new Recipe("rec9");
-        recipeService.save(recipe);
+//        Recipe recipe = new Recipe("rec9");
+//        recipeService.save(recipe);
 //        Category category1 = new Category("Суп");
 //        categoryRepository.save(category1);
 //        Category category2 = new Category("Каша");
@@ -41,12 +41,12 @@ public class HomeController {
 //        categoryRepository.save(category4);
 //        Category category5 = new Category("Второе");
 //        categoryRepository.save(category5);
-        Inventory inventory1 = new Inventory("Кастрюля");
-        inventoryRepository.save(inventory1);
-        Inventory inventory2 = new Inventory("Сковорода");
-        inventoryRepository.save(inventory2);
-        Inventory inventory3 = new Inventory("Шампур");
-        inventoryRepository.save(inventory3);
+//        Inventory inventory1 = new Inventory("Кастрюля");
+//        inventoryRepository.save(inventory1);
+//        Inventory inventory2 = new Inventory("Сковорода");
+//        inventoryRepository.save(inventory2);
+//        Inventory inventory3 = new Inventory("Шампур");
+//        inventoryRepository.save(inventory3);
         return "home";
     }
 

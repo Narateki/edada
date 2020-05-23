@@ -18,8 +18,10 @@
 <div class="container">
     <h2 class="text-danger">Добавить новый рецепт</h2>
 
+
     <form action="#" th:action="@{/recipies/add}"
           method="post" th:object="${recipies}">
+
         <div class="form-group">
             <label for="res-name">Название</label>
             <input id="res-name" class="form-control"
@@ -43,12 +45,30 @@
                         th:text="${categor}"></option>
             </select>
         </div>
+<!--        <div th:each="ing, am: *{ingredients}">-->
+<!--            <label>Ингредиент</label>-->
+<!--            <table>-->
+<!--            <tr>-->
+<!--                <td><input type="text" name="ingredient" th:value="${ing.ingredient}" /></td>-->
+<!--                <td><input type="text" name="amount" th:value="${ing.amount}" /></td>-->
+<!--            </tr>-->
+<!--            </table>-->
+<!--        </div>-->
+
+        <div class = "form-group" th:object="chosenIng">
+            <label>Ингредиенты</label>
+            <input th:field = "*{chosenIng}"/>
+             <div th:each ="ing: ${ingredients}">
+                 <input th:field = "*{chosenIng}" type = "number"/>
+            </div>
+
+        </div>
 
 <!--        Тут должен быть множественный выбор-->
 <!--        по анологии со следующим комментарием, но без количества-->
         <div class="form-group">
             <label>Инвентарь</label>
-            <select class="form-control">
+            <select name="inventory" multiple class="chosen-select" >
                 <option th:each="inv: ${inventory}"
                         th:value="${inv}"
                         th:text="${inv}"></option>
@@ -58,14 +78,7 @@
         <!--        Можно открывать список ингредиентов табличкой и у каждого добавлять поле ввода для double-->
         <!--        Всю таблицу передавать на сервер(в контроллер) из контроллера в сервис рецепта и там уже -->
         <!--        приводить в вид который требуется и сохранять-->
-        <div class="form-group">
-            <label>Ингредиенты</label>
-            <select class="form-control">
-                <option th:each="ing: ${ingredients}"
-                        th:value="${ing}"
-                        th:text="${ing}"></option>
-            </select>
-        </div>
+
         <button type="submit" class="btn btn-primary">Добавить</button>
     </form>
       </div>

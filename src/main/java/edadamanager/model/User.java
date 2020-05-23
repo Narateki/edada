@@ -34,7 +34,7 @@ public class User implements UserDetails {
     private Double weight;
     private Double height;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
     private Boolean sex; // 0 - male, 1 - female
     private String role;

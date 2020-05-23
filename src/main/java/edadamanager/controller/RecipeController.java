@@ -1,5 +1,7 @@
 package edadamanager.controller;
 
+import edadamanager.model.Ingredient;
+import edadamanager.model.IngredientInRecipe;
 import edadamanager.model.Recipe;
 import edadamanager.repository.CategoryRepository;
 import edadamanager.repository.IngredientRepository;
@@ -13,12 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 
 @Controller
 @RequestMapping("/recipies")
 public class RecipeController {
-
+    Map <Ingredient, Double> choosenIng;
     @Autowired
     private RecipeService recipeService;
     @Autowired
@@ -42,6 +45,7 @@ public class RecipeController {
         model.addAttribute("ingredients", ingredientRepository.findAll());
         model.addAttribute("category", categoryRepository.findAll());
         model.addAttribute("recipies", recipe);
+        model.addAttribute("chosenIng", choosenIng);
         return "addRecipe";
     }
 

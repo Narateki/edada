@@ -1,6 +1,7 @@
 package edadamanager.controller;
 
 import edadamanager.model.*;
+import edadamanager.repository.CategoryRepository;
 import edadamanager.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ public class RecipeService {
     // Добавлем репозиторий с рецептами
     @Autowired
     private RecipeRepository recipeRepository;
+
 
     public List<Recipe> findAll() {
         List<Recipe> r = recipeRepository.findAll();

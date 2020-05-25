@@ -1,9 +1,7 @@
 package edadamanager.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import edadamanager.converter.RecipeWrapper;
+import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotBlank;
@@ -24,6 +22,7 @@ import java.util.*;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +33,8 @@ public class Recipe {
     @NotBlank(message = "Описание не добавлено")
     private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.MERGE,
+            CascadeType.PERSIST})
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -48,17 +48,23 @@ public class Recipe {
     @JoinTable(name = "recipes_inventories",
             joinColumns = @JoinColumn(name = "recipe_ID"),
             inverseJoinColumns = @JoinColumn(name = "inventory_ID"))
-    private Set<Inventory> inventories = new HashSet<>();;
+    private Set<Inventory> inventories = new HashSet<>();
 
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "recipes_reviews",
-            joinColumns = @JoinColumn(name = "recipe_ID"),
-            inverseJoinColumns = @JoinColumn(name = "review_ID"))
-    private Set<Review> reviews = new HashSet<>();
+//    @LazyCollection(LazyCollectionOption.FALSE)
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "recipes_reviews",
+//            joinColumns = @JoinColumn(name = "recipe_ID"),
+//            inverseJoinColumns = @JoinColumn(name = "review_ID"))
+//    private Set<Review> reviews = new HashSet<>();
 
+    public Recipe(String name, String description, Category category, Set<IngredientInRecipe> ingredients, Set<Inventory> inventories) {
+        this.name = name;
+        this.description = description;
+        this.category = category;
+        this.ingredients = ingredients;
+        this.inventories = inventories;
+    }
 
-    public Recipe(){}
 
     /**
      * Вычисление калорийности всего рецепта в первоначальном виде
@@ -90,14 +96,14 @@ public class Recipe {
     /**
      * Вычисление среднего рейтинга по всем отзывам
      */
-    public Double getAvgRate() {
-        Double sum = 0.;
-        for (Review review: reviews) {
-            sum+=review.getRate();
-        }
-        if (reviews.size() == 0 || sum == 0) return 0.;
-        return  sum/reviews.size();
-    }
+//    public Double getAvgRate() {
+//        Double sum = 0.;
+//        for (Review review: reviews) {
+//            sum+=review.getRate();
+//        }
+//        if (reviews.size() == 0 || sum == 0) return 0.;
+//        return  sum/reviews.size();
+//    }
 
     /**
      * Преобразование массива ингрединентов к строке
@@ -125,32 +131,34 @@ public class Recipe {
         return s.substring(0, s.length()-2);
     }
 
-    public Recipe(String name){
-        this.name = name;
-        this.description = "nonono";
-        this.category = new Category("catt");
-        Ingredient ingredient = new Ingredient("ingr", 50);
-        Ingredient ingredient2 = new Ingredient("ingr2", 90);
-        Set<Ingredient> ingredientt = new HashSet<>();
-        ingredientt.add(ingredient);
-        ingredientt.add(ingredient2);
+//    public Recipe(String name){
+//        this.name = name;
+//        this.description = "nonono";
+//        this.category = new Category("catt");
+//        Ingredient ingredient = new Ingredient("ingr", 50);
+//        Ingredient ingredient2 = new Ingredient("ingr2", 90);
+//        Set<Ingredient> ingredientt = new HashSet<>();
+//        ingredientt.add(ingredient);
+//        ingredientt.add(ingredient2);
+//
+//
+//        for (Ingredient ingredienttt: ingredientt) {
+//            IngredientInRecipe ingr = new IngredientInRecipe(ingredienttt, 10.);
+//            ingredients.add(ingr);
+//        }
+//
+//        Inventory inventory = new Inventory("inv1");
+//        Set<Inventory> inventories = new HashSet<>();
+//        inventories.add(inventory);
+//        this.inventories = inventories;
+//
+//        User user = new User("user");
+//
+//        Review review = new Review(user);
+//        Set<Review> reviews = new HashSet<>();
+//        reviews.add(review);
+//        this.reviews = reviews;
+//    }
 
 
-        for (Ingredient ingredienttt: ingredientt) {
-            IngredientInRecipe ingr = new IngredientInRecipe(ingredienttt, 10.);
-            ingredients.add(ingr);
-        }
-
-        Inventory inventory = new Inventory("inv1");
-        Set<Inventory> inventories = new HashSet<>();
-        inventories.add(inventory);
-        this.inventories = inventories;
-
-        User user = new User("user");
-
-        Review review = new Review(user);
-        Set<Review> reviews = new HashSet<>();
-        reviews.add(review);
-        this.reviews = reviews;
-    }
 }

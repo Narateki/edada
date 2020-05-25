@@ -1,7 +1,9 @@
 package edadamanager.controller;
 
+import edadamanager.converter.RecipeWrapper;
 import edadamanager.model.Ingredient;
 import edadamanager.model.IngredientInRecipe;
+import edadamanager.model.Inventory;
 import edadamanager.model.Recipe;
 import edadamanager.repository.CategoryRepository;
 import edadamanager.repository.IngredientRepository;
@@ -10,11 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 
@@ -49,14 +50,35 @@ public class RecipeController {
         return "addRecipe";
     }
 
+//
+//    @RequestMapping(value = "/add", method = RequestMethod.POST)
+//    public String saveRecipe(@Valid Recipe recipe, BindingResult errors, Model model) {
+//        if (errors.hasErrors())
+//            return "addRecipe";
+//        recipeService.save(recipe);
+//        return "redirect:/recipies/findall";
+//    }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String saveRecipe(@Valid Recipe recipe, BindingResult errors, Model model) {
-        if (errors.hasErrors())
-            return "addRecipe";
-        recipeService.save(recipe);
-        return "redirect:/recipies/findall";
+    @RequestMapping(value = "/addjs", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+    public @ResponseBody String saveRecipeJS(@RequestBody RecipeWrapper recipeWR) {
+        System.out.println(recipeWR);
+        recipeService.save(recipeWR);
+        //return "redirect:/recipies/findall";
+        return "ulala";
     }
+
+    @RequestMapping("/getIngredients")
+    public @ResponseBody
+    List<Ingredient> getIngredients(){
+        return ingredientRepository.findAll();
+    }
+
+    @RequestMapping("/getInventory")
+    public @ResponseBody
+    List<Inventory> getInventory(){
+        return inventoryRepository.findAll();
+    }
+
     @RequestMapping("/load")
     public String loadAll(){
         return "recipies";

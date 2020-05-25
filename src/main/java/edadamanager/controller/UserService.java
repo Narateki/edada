@@ -25,21 +25,5 @@ public class UserService {
         userRepository.save(user);
     }
 
-//    private User createUser(Integer id, String login, String hashpass,
-//                            Double weight, Double height,
-//                            LocalDate birthday, Boolean sex) {
-//
-//
-//        User user = new User();
-//        user.setId(id);
-//        user.setLogin(login);
-//        user.setHashpass(hashpass);
-//        user.setWeight(weight);
-//        user.setHeight(height);
-//        user.setBirthday(birthday);
-//        user.setSex(sex);
-//
-//        return user;
-//    }
 
 }

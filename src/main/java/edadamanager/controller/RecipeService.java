@@ -1,18 +1,18 @@
 package edadamanager.controller;
 
 import edadamanager.converter.RecipeWrapper;
+import edadamanager.finding.IngredientsSet;
 import edadamanager.model.*;
 import edadamanager.repository.CategoryRepository;
 import edadamanager.repository.IngredientRepository;
 import edadamanager.repository.InventoryRepository;
 import edadamanager.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.*;
 
 @Transactional
@@ -29,8 +29,8 @@ public class RecipeService {
     private CategoryRepository categoryRepository;
 
 
-    public List<Recipe> findAll() {
-        return recipeRepository.findAll();
+    public Page<Recipe> findAllPages(Pageable page) {
+        return recipeRepository.findAllPages(page);
     }
 
     public void save(Recipe recipe) {
@@ -65,4 +65,7 @@ public class RecipeService {
     }
 
 
+    public List<Recipe> searchAllByIngredients(IngredientsSet ingredientsSet) {
+       return recipeRepository.searchAllByIngredients(ingredientsSet.getIngredientSet());
+    }
 }

@@ -1,6 +1,7 @@
 package edadamanager.controller;
 
 import edadamanager.converter.RecipeWrapper;
+import edadamanager.finding.IngredientsSet;
 import edadamanager.model.Ingredient;
 import edadamanager.model.IngredientInRecipe;
 import edadamanager.model.Inventory;
@@ -9,14 +10,20 @@ import edadamanager.repository.CategoryRepository;
 import edadamanager.repository.IngredientRepository;
 import edadamanager.repository.InventoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 @Controller
@@ -33,10 +40,17 @@ public class RecipeController {
     private CategoryRepository categoryRepository;
 
     @RequestMapping("/findall")
-    public String findall(Model model) {
-        model.addAttribute("recipies", recipeService.findAll());
-        return "recipies";
+    public String findall(Pageable page, Model model) {
+//        Sort.Order o = null;
+//        if (sort!=null) {
+//            o = sort.iterator().next();
+//        }
+//        model.addAttribute("sort", (sort!=null)?o.getProperty():"");
+//        model.addAttribute("dir", (sort!=null)?o.getDirection():"");
+        model.addAttribute("page", recipeService.findAllPages(page));
+        return "recipesPage";
     }
+
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addRecipe(Model model) {
@@ -66,6 +80,32 @@ public class RecipeController {
         //return "redirect:/recipies/findall";
         return "ulala";
     }
+
+    @RequestMapping(value = "/findByIngr", method = RequestMethod.GET)
+    public String findByIngr(Model model) {
+
+        IngredientsSet ingredientSet = new IngredientsSet();
+        //Recipe recipe = new Recipe();
+        model.addAttribute("ingredients", ingredientRepository.findAll());
+        model.addAttribute("ingredientSet", ingredientSet);
+//        model.addAttribute("category", categoryRepository.findAll());
+//        model.addAttribute("recipies", recipe);
+//        model.addAttribute("chosenIng", choosenIng);
+        return "recipesByIngr";
+    }
+
+    @RequestMapping(value = "/findByIngr", method = RequestMethod.POST)
+    public ModelAndView saveRecipe(IngredientsSet ingredientsSet, ModelMap model) {
+//        model.addAttribute("recipes", recipeService.searchAllByIngredients(ingredientsSet));
+        return new ModelAndView("recipies", "recipes", recipeService.searchAllByIngredients(ingredientsSet));
+//        return "redirect:/recipies/findby";
+    }
+
+    @RequestMapping("/findby")
+    public String findby(ModelMap model) {
+        return "recipies";
+    }
+
 
     @RequestMapping("/getIngredients")
     public @ResponseBody

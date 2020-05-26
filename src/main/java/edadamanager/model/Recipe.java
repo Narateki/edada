@@ -33,29 +33,28 @@ public class Recipe {
     @NotBlank(message = "Описание не добавлено")
     private String description;
 
-    @ManyToOne(cascade = {CascadeType.MERGE,
-            CascadeType.PERSIST})
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinColumn(name = "ingredientsInRecipe_id")
     private Set<IngredientInRecipe> ingredients = new HashSet<>();
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "recipes_inventories",
             joinColumns = @JoinColumn(name = "recipe_ID"),
             inverseJoinColumns = @JoinColumn(name = "inventory_ID"))
     private Set<Inventory> inventories = new HashSet<>();
 
-//    @LazyCollection(LazyCollectionOption.FALSE)
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(name = "recipes_reviews",
-//            joinColumns = @JoinColumn(name = "recipe_ID"),
-//            inverseJoinColumns = @JoinColumn(name = "review_ID"))
-//    private Set<Review> reviews = new HashSet<>();
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "recipes_reviews",
+            joinColumns = @JoinColumn(name = "recipe_ID"),
+            inverseJoinColumns = @JoinColumn(name = "review_ID"))
+    private Set<Review> reviews = new HashSet<>();
 
     public Recipe(String name, String description, Category category, Set<IngredientInRecipe> ingredients, Set<Inventory> inventories) {
         this.name = name;
@@ -96,14 +95,14 @@ public class Recipe {
     /**
      * Вычисление среднего рейтинга по всем отзывам
      */
-//    public Double getAvgRate() {
-//        Double sum = 0.;
-//        for (Review review: reviews) {
-//            sum+=review.getRate();
-//        }
-//        if (reviews.size() == 0 || sum == 0) return 0.;
-//        return  sum/reviews.size();
-//    }
+    public Double getAvgRate() {
+        Double sum = 0.;
+        for (Review review: reviews) {
+            sum+=review.getRate();
+        }
+        if (reviews.size() == 0 || sum == 0) return 0.;
+        return  sum/reviews.size();
+    }
 
     /**
      * Преобразование массива ингрединентов к строке
@@ -129,6 +128,10 @@ public class Recipe {
         }
         if (s.length() <= 2) return "";
         return s.substring(0, s.length()-2);
+    }
+
+    public boolean isNew(){
+        return id==null;
     }
 
 //    public Recipe(String name){

@@ -24,7 +24,7 @@ public class Ingredient {
     private String name;
     private Integer calory;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "unit_id")
     private Units units;
 

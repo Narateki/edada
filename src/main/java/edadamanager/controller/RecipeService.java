@@ -8,13 +8,14 @@ import edadamanager.repository.InventoryRepository;
 import edadamanager.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.*;
 
-
+@Transactional
 @Service("recipeService")
 public class RecipeService {
 
@@ -50,6 +51,7 @@ public class RecipeService {
             inventories.add(inventory);
         }
         Category category = categoryRepository.findOne(rw.getCategory_id());
+
         Recipe recipe = new Recipe(rw.getName(), rw.getDescription(), category, ingredients, inventories);
         recipeRepository.save(recipe);
     }
@@ -57,6 +59,8 @@ public class RecipeService {
     public IngredientInRecipe ingrToIngrInRecipe(Integer id, Double quantity) {
         IngredientInRecipe iir = new IngredientInRecipe();
         Ingredient ingredient = ingredientRepository.findOne(id);
+        IngredientInRecipe ingredientInRecipe = new IngredientInRecipe(ingredient,quantity);
+
         return new IngredientInRecipe(ingredient,quantity);
     }
 

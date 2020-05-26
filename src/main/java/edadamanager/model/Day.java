@@ -23,15 +23,15 @@ public class Day {
     private Double masl; // metres above sea level
     private Double totalRise;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "breakfast_id")
     private Recipe breakfast;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "lunch_id")
     private Recipe lunch;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "dinner_id")
     private Recipe dinner;
 

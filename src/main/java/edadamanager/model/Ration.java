@@ -26,27 +26,27 @@ public class Ration {
     private String name;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "rations_users",
             joinColumns = @JoinColumn(name = "ration_ID"),
             inverseJoinColumns = @JoinColumn(name = "user_ID"))
     private List<User> users = new ArrayList<>();
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "rations_ingredients",
             joinColumns = @JoinColumn(name = "ration_ID"),
             inverseJoinColumns = @JoinColumn(name = "ingredient_ID"))
     private  List<Ingredient> ingredients = new ArrayList<>();
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "rations_inventories",
             joinColumns = @JoinColumn(name = "ration_ID"),
             inverseJoinColumns = @JoinColumn(name = "inventory_ID"))
     private  List<Inventory> inventories = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.MERGE)
     private List<Day> days = new ArrayList<>();
 
     /**

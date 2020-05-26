@@ -19,7 +19,7 @@ public class IngredientInRecipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "ingredient_id")
     private Ingredient ingredient;
     private Double amount;

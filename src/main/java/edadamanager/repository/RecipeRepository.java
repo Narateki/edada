@@ -1,6 +1,7 @@
 package edadamanager.repository;
 
 import edadamanager.model.Ingredient;
+import edadamanager.model.Inventory;
 import edadamanager.model.Recipe;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +21,14 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
     )
     List<Recipe> searchAllByIngredients(@Param("ingrSet") Set<Ingredient> ingredientSet);
 
+    @Query(
+            "SELECT r from Recipe as r inner join r.ingredients as irr inner join r.inventories as ivrr" +
+                    " where irr.ingredient in :ingrSet and ivrr in :invSet"
+    )
+    List<Recipe> searchAllByParams(@Param("ingrSet") Set<Ingredient> ingredientSet, @Param("invSet") Set<Inventory> inventorySet);
+
     @Query("select r from Recipe as r")
     Page<Recipe> findAllPages(Pageable page);
+
+    Set<Recipe> findAllByIdIn(@Param( "ids" ) Set<Integer> ids );
 }

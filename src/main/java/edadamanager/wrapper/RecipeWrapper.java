@@ -1,4 +1,4 @@
-package edadamanager.converter;
+package edadamanager.wrapper;
 
 import edadamanager.model.Ingredient;
 import edadamanager.model.IngredientInRecipe;

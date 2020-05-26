@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Дни похода</title>
+    <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!--    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script th:src="@{/resources/global.js}"></script>
+    <script th:src="@{/resources/addDays.js}"></script>
+</head>
+<body>
+
+<div th:replace="../views/header :: header"></div>
+
+
+<div class="container">
+    <h2 class="text-danger">Добавление дней</h2>
+
+
+    <form action="#" method="post" >
+
+        <div class="form-group">
+            <label for="qdays">Количество дней</label>
+            <input id="qdays" class="form-control"
+                   th:value="${ration.getDays().size()}"/>
+        </div>
+        <div class="form-group">
+            <label for="rId">Рацион</label>
+            <input id="rId" class="form-control"
+                   th:value="${ration.getId()}"/>
+        </div>
+
+        <div id="days-container">
+
+        </div>
+        <button type="submit" id="btn-load" class="btn btn-primary">Найти рецепты</button>
+<!--        <div class="form-group">-->
+<!--            <label for="name">Название</label>-->
+<!--            <input id="name" class="form-control"-->
+<!--                   th:field="*{name}"/>-->
+<!--            <span th:if="${#fields.hasErrors('name')}"-->
+<!--                  th:errors="${recipies.name}" class="text-danger"></span>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="description">Описание</label>-->
+<!--            <textarea id="description" class="form-control"-->
+<!--                      th:field="*{description}"></textarea>-->
+<!--            <span th:if="${#fields.hasErrors('description')}"-->
+<!--                  th:errors="${recipies.description}" class="text-danger"></span>-->
+<!--        </div>-->
+
+<!--        <div class="form-group">-->
+<!--            <label>Категория</label>-->
+<!--            <select id="category" class="form-control" th:field="*{category}">-->
+<!--                <option th:each="categor: ${category}"-->
+<!--                        th:value="${categor.id}"-->
+<!--                        th:text="${categor}"></option>-->
+<!--            </select>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="q-ingr">Количество ингредиентов</label>-->
+<!--            <input id="q-ingr" class="form-control"/>-->
+<!--        </div>-->
+<!--        <button type="submit" id="btn-ingr" class="btn btn-primary">Добавить ингредиенты</button>-->
+<!--        <div>-->
+<!--            <table>-->
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <td>Ингредиент</td>-->
+<!--                    <td>Количество</td>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody id="tbody-ingr">-->
+
+<!--                </tbody>-->
+
+<!--            </table>-->
+<!--        </div>-->
+
+<!--        <div class="form-group">-->
+<!--            <label for="q-invent">Количество инвентаря</label>-->
+<!--            <input id="q-invent" class="form-control"/>-->
+<!--        </div>-->
+<!--        <button type="submit" id="btn-invent" class="btn btn-primary">Добавить инвентарь</button>-->
+<!--        <div>-->
+<!--            <table>-->
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <td>Инвентарь</td>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody id="tbody-invent">-->
+
+<!--                </tbody>-->
+
+<!--            </table>-->
+<!--        </div>-->
+        <button type="submit" id="btn-add" class="btn btn-primary">Добавить</button>
+    </form>
+</div>
+</body>
+</html>

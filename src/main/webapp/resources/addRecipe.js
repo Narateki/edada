@@ -53,6 +53,7 @@ $(document).ready(function () {
     });
 
     $("#btn-add").click(function(event) {
+        event.preventDefault();
         let data = {
             "name": $("#name").val(),
             "description": $("#name").val(),
@@ -61,7 +62,7 @@ $(document).ready(function () {
             "ingrs_q": [],
             "invent_id": []
         };
-        event.preventDefault();
+
         let qingr = $("#q-ingr").val();
         for (let i = 0; i<qingr; i++) {
             data.ingrs_id.push($("#s-ingr"+i).val());

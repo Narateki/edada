@@ -1,27 +1,18 @@
 package edadamanager.model;
 
-import edadamanager.converter.RecipeWrapper;
 import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
 @Component
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class Recipe {
     @Id
@@ -134,7 +125,24 @@ public class Recipe {
         return id==null;
     }
 
-//    public Recipe(String name){
+    public String toStringWithCalory(Double calory) {
+        Map<Ingredient, Double> ingrAmountMap = calcIngredientsAmount(calory);
+        StringBuilder s = new StringBuilder();
+        s.append(name);
+        s.append(", ");
+        s.append("; Ингредиенты: ");
+
+        for (Map.Entry<Ingredient, Double> ingr : ingrAmountMap.entrySet()) {
+            s.append(ingr.getKey().toString());
+            s.append(" - ");
+            s.append(Math.round(ingr.getValue() * 100.0) / 100.0);
+        }
+        s.append("; Инвентарь: ");
+        s.append(inventoriesToString());
+        return s.toString();
+    }
+
+    //    public Recipe(String name){
 //        this.name = name;
 //        this.description = "nonono";
 //        this.category = new Category("catt");

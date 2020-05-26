@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipies</title>
+    <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!--    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script th:src="@{/resources/global.js}"></script>
+
+</head>
+<body>
+
+<div th:replace="../views/header :: header"></div>
+
+
+<div class="container">
+    <h2 class="text-danger">Добавить новый рецепт</h2>
+
+
+    <form action="#" th:action="@{/rations/add}"
+          method="post" th:object="${ration}">
+
+        <div class="form-group">
+            <label for="name">Название</label>
+            <input id="name" class="form-control"
+                   th:field="*{name}"/>
+            <span th:if="${#fields.hasErrors('name')}"
+                  th:errors="${ration.name}" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Участники</label>
+            <select  id="users" class="form-control" multiple th:field="*{users}" th:size="${users.size()}">
+                <option th:each="user: ${users}"
+                        th:value="${user.id}"
+                        th:text="${user.username}"></option>
+            </select>
+
+        </div>
+
+        <div class="form-group">
+            <label>Ингредиенты</label>
+            <select id="ingrs" class="form-control" multiple th:field="*{ingredients}" th:size="${ingredients.size()}">
+                <option th:each="ingr: ${ingredients}"
+                        th:value="${ingr.id}"
+                        th:text="${ingr.name}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Инвентарь</label>
+            <select id="invent" class="form-control" multiple th:field="*{inventories}" th:size="${ingredients.size()}">
+                <option th:each="invent: ${inventory}"
+                        th:value="${invent.id}"
+                        th:text="${invent.name}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="q-days">Количество дней</label>
+            <input id="q-days" th:field="*{qdays}" class="form-control"/>
+        </div>
+
+        <button type="submit" id="btn-add" class="btn btn-primary">Добавить</button>
+    </form>
+</div>
+</body>
+</html>

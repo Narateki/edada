@@ -1,12 +1,10 @@
 package edadamanager.controller;
 
-import edadamanager.converter.RecipeWrapper;
-import edadamanager.finding.IngredientsSet;
+import edadamanager.repository.*;
+import edadamanager.wrapper.RationWrapper;
+import edadamanager.wrapper.RecipeWrapper;
+import edadamanager.wrapper.set.IngredientsSet;
 import edadamanager.model.*;
-import edadamanager.repository.CategoryRepository;
-import edadamanager.repository.IngredientRepository;
-import edadamanager.repository.InventoryRepository;
-import edadamanager.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +19,8 @@ public class RecipeService {
 
     @Autowired
     private RecipeRepository recipeRepository;
+    @Autowired
+    private RationRepository rationRepository;
     @Autowired
     private IngredientRepository ingredientRepository;
     @Autowired
@@ -67,5 +67,10 @@ public class RecipeService {
 
     public List<Recipe> searchAllByIngredients(IngredientsSet ingredientsSet) {
        return recipeRepository.searchAllByIngredients(ingredientsSet.getIngredientSet());
+    }
+
+    public List<Recipe> findRecipes(RationWrapper wr) {
+        Ration ration = rationRepository.findById(wr.getId());
+        return recipeRepository.searchAllByParams(ration.getIngredients(), ration.getInventories());
     }
 }

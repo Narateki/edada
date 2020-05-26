@@ -1,9 +1,8 @@
 package edadamanager.controller;
 
-import edadamanager.converter.RecipeWrapper;
-import edadamanager.finding.IngredientsSet;
+import edadamanager.wrapper.RecipeWrapper;
+import edadamanager.wrapper.set.IngredientsSet;
 import edadamanager.model.Ingredient;
-import edadamanager.model.IngredientInRecipe;
 import edadamanager.model.Inventory;
 import edadamanager.model.Recipe;
 import edadamanager.repository.CategoryRepository;
@@ -11,19 +10,14 @@ import edadamanager.repository.IngredientRepository;
 import edadamanager.repository.InventoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 
 @Controller

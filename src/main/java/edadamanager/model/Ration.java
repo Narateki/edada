@@ -10,7 +10,9 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Component
@@ -30,24 +32,28 @@ public class Ration {
     @JoinTable(name = "rations_users",
             joinColumns = @JoinColumn(name = "ration_ID"),
             inverseJoinColumns = @JoinColumn(name = "user_ID"))
-    private List<User> users = new ArrayList<>();
+    private Set<User> users = new HashSet<>();
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "rations_ingredients",
             joinColumns = @JoinColumn(name = "ration_ID"),
             inverseJoinColumns = @JoinColumn(name = "ingredient_ID"))
-    private  List<Ingredient> ingredients = new ArrayList<>();
+    private  Set<Ingredient> ingredients = new HashSet<>();
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "rations_inventories",
             joinColumns = @JoinColumn(name = "ration_ID"),
             inverseJoinColumns = @JoinColumn(name = "inventory_ID"))
-    private  List<Inventory> inventories = new ArrayList<>();
+    private Set<Inventory> inventories = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.MERGE)
-    private List<Day> days = new ArrayList<>();
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.ALL}, fetch = FetchType.EAGER)
+    private Set<Day> days = new HashSet<>();
+
+    @Transient
+    private Integer qdays = 0;
 
     /**
      * Вычисление количества калорий на весь рацион

@@ -1,6 +1,6 @@
-package edadamanager.finding;
+package edadamanager.wrapper.set;
 
-import edadamanager.model.Ingredient;
+import edadamanager.model.Inventory;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +11,6 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class IngredientsSet {
-    Set<Ingredient> ingredientSet = new HashSet<>();
+public class InventorySet {
+    Set<Inventory> inventorySet = new HashSet<>();
 }

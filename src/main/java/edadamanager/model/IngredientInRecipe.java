@@ -29,4 +29,11 @@ public class IngredientInRecipe {
         this.ingredient = ingredient;
         this.amount = amount;
     }
+
+    @Override
+    public String toString() {
+        return "" + ingredient +
+                " = " + amount +
+                '}';
+    }
 }

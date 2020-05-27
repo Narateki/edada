@@ -129,13 +129,13 @@ public class Recipe {
         Map<Ingredient, Double> ingrAmountMap = calcIngredientsAmount(calory);
         StringBuilder s = new StringBuilder();
         s.append(name);
-        s.append(", ");
         s.append("; Ингредиенты: ");
 
         for (Map.Entry<Ingredient, Double> ingr : ingrAmountMap.entrySet()) {
             s.append(ingr.getKey().toString());
             s.append(" - ");
             s.append(Math.round(ingr.getValue() * 100.0) / 100.0);
+            s.append(" ");
         }
         s.append("; Инвентарь: ");
         s.append(inventoriesToString());

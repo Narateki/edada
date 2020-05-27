@@ -31,4 +31,6 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
     Page<Recipe> findAllPages(Pageable page);
 
     Set<Recipe> findAllByIdIn(@Param( "ids" ) Set<Integer> ids );
+
+    List<Recipe> findAllByIdIn(@Param( "ids" ) List<Integer> ids );
 }

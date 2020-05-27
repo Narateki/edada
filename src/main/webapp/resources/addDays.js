@@ -4,6 +4,10 @@ $(document).ready(function () {
     let daysContainer = $("#days-container");
     for(let i = 0; i<qdays; i++){
         let dayContainer = $("<div>", {"id":"dayContainer"+i});
+
+        let hDay = $("<h3>", {"class":"text-info", "text":"День"+(i+1)});
+        dayContainer.append(hDay);
+
         let formGrMilage = $("<div>", {"class":"form-group"});
         let formGrMasl = $("<div>", {"class":"form-group"});
         let formGrRise = $("<div>", {"class":"form-group"});
@@ -42,7 +46,7 @@ $(document).ready(function () {
         event.preventDefault();
         let data = {
             "id" : $("#rId").val(),
-            "millage" : [],
+            "mileage" : [],
             "masl": [],
             "totalRise": []
         };
@@ -52,7 +56,7 @@ $(document).ready(function () {
             let inMasl = $("#masl"+i).val();
             let inMilage = $("#milage"+i).val();
             data.masl.push(inMasl);
-            data.millage.push(inMilage);
+            data.mileage.push(inMilage);
             data.totalRise.push(inRise);
         }
 
@@ -67,9 +71,66 @@ $(document).ready(function () {
             async: false,
             cache: false,
             processData:false,
-            success: function(responseJsonObject){
-                console.log(responseJsonObject);
+            success: function(res){
+                console.log(res);
+                $.each(res,function (i,day) {
+                    let selectB = $("#b"+i);
+                    let selectL = $("#l"+i);
+                    let selectD = $("#d"+i);
+                    let recIds = Object.keys(day);
+                    $.each(recIds,function (j,recId) {
+                        selectB.append($("<option>", {'text': day[recId], 'value': recId}));
+                        selectL.append($("<option>", {'text': day[recId], 'value': recId}));
+                        selectD.append($("<option>", {'text': day[recId], 'value': recId}));
+                    });
+                });
+                let btns = $("#btns");
+                let btnSave =  $("<button>", {'id':'btn-save','text': "Сохранить", "class": "btn btn-primary"});
+                btns.append(btnSave);
+
+                $("#btn-save").click(function(event) {
+                    event.preventDefault();
+
+                    let data = {
+                        "id": $("#rId").val(),
+                        "breakfast": [],
+                        "lunch": [],
+                        "dinner": []
+                    };
+
+                    for(let i = 0; i<qdays; i++) {
+                        let selectB = $("#b"+i);
+                        let selectL = $("#l"+i);
+                        let selectD = $("#d"+i);
+                        data.breakfast.push(selectB.val());
+                        data.lunch.push(selectL.val());
+                        data.dinner.push(selectD.val());
+                    }
+
+                    let token = $("meta[name='_csrf']").attr("content");
+
+                    $.ajax({
+                        url:"saveDays",
+                        headers: {"X-CSRF-TOKEN": token},
+                        type:"POST",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(data),
+                        async: false,
+                        cache: false,
+                        processData:false,
+                        success: function(res){
+                            let container = $(".container");
+                            container.remove();
+                            let body = $("body");
+                            let h3 = $("<h3>", {"text":"Рацион успешно добавлен.", "class":"text-success"});
+                            body.append(h3);
+                        }
+                    });
+
+                });
             }
         });
     });
+
+
 });

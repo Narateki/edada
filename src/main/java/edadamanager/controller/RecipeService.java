@@ -37,7 +37,7 @@ public class RecipeService {
         recipeRepository.save(recipe);
     }
 
-    public void save(RecipeWrapper rw) {
+    public Recipe save(RecipeWrapper rw) {
         Set<IngredientInRecipe> ingredients = new HashSet<>();
         Set<Inventory> inventories = new HashSet<>();
         List<Integer> rwIngrsId = rw.getIngrs_id();
@@ -53,7 +53,8 @@ public class RecipeService {
         Category category = categoryRepository.findOne(rw.getCategory_id());
 
         Recipe recipe = new Recipe(rw.getName(), rw.getDescription(), category, ingredients, inventories);
-        recipeRepository.save(recipe);
+        Recipe r = recipeRepository.save(recipe);
+        return r;
     }
 
     public IngredientInRecipe ingrToIngrInRecipe(Integer id, Double quantity) {
@@ -69,8 +70,7 @@ public class RecipeService {
        return recipeRepository.searchAllByIngredients(ingredientsSet.getIngredientSet());
     }
 
-    public List<Recipe> findRecipes(RationWrapper wr) {
-        Ration ration = rationRepository.findById(wr.getId());
+    public List<Recipe> findRecipes(Ration ration) {
         return recipeRepository.searchAllByParams(ration.getIngredients(), ration.getInventories());
     }
 }

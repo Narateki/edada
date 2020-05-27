@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edada</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script th:src="@{/resources/global.js}"></script>
+</head>
+<body>
+<div th:replace="../views/header :: header"></div>
+<div class="container">
+    <h3 th:text="${ration.name}" class="text-primary">Рацион</h3>
+    <div class="form-group">
+        <h5 class="text-dark">Ингредиенты</h5>
+        <ul class="list-group" >
+            <li th:each="ingr:${ration.getIngredients()}" th:text="${ingr}" class="list-group-item">Ингредиент</li>
+        </ul>
+    </div>
+
+    <div class="form-group">
+        <h5 class="text-dark">Инвентарь</h5>
+        <ul class="list-group" >
+            <li th:each="inv:${ration.getInventories()}" th:text="${inv}" class="list-group-item">Ингредиент</li>
+        </ul>
+    </div>
+
+    <div class="form-group">
+        <h5 class="text-dark">Участники</h5>
+        <ul class="list-group" >
+            <li th:each="user:${ration.getUsers()}" th:text="${user}" class="list-group-item">Ингредиент</li>
+        </ul>
+    </div>
+
+    <div th:each="day:${ration.getDays()}" class="form-group">
+        <h5 class="text-dark" th:text="${dayStat.count}">День</h5>
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Километраж, км</th>
+                    <th scope="col">Над уровнем моря, м</th>
+                    <th scope="col">Суммарный подъем, м</th>
+                    <th scope="col">Ккал</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td th:text="${day.getMileage()}"></td>
+                    <td th:text="${day.getMasl()}"></td>
+                    <td th:text="${day.getTotalRise()}"></td>
+                    <td th:text="${ration.calcDayCalory(day)}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+</body>
+</html>

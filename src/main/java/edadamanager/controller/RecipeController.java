@@ -67,12 +67,12 @@ public class RecipeController {
 //        return "redirect:/recipies/findall";
 //    }
 
-    @RequestMapping(value = "/addjs", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
-    public @ResponseBody String saveRecipeJS(@RequestBody RecipeWrapper recipeWR) {
-        System.out.println(recipeWR);
-        recipeService.save(recipeWR);
+    @RequestMapping(value = "/addjs", method = RequestMethod.POST, produces = "application/json; charset=utf-8", consumes = "application/json; charset=utf-8")
+    public ModelAndView saveRecipeJS(@RequestBody RecipeWrapper recipeWR) {
+        //System.out.println(recipeWR);
+        Recipe r = recipeService.save(recipeWR);
         //return "redirect:/recipies/findall";
-        return "ulala";
+        return new ModelAndView("endSave", "msg", "Рецепт "+r.getName()+" успешно сохранен.");
     }
 
     @RequestMapping(value = "/findByIngr", method = RequestMethod.GET)

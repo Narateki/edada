@@ -38,7 +38,6 @@ public class User implements UserDetails {
     private LocalDate birthday;
     private Boolean sex; // 0 - male, 1 - female
     private String role;
-//    private List<Ration> rations;
 
 
     public User(String login) {
@@ -49,6 +48,7 @@ public class User implements UserDetails {
      * Возраст юзера
      */
     private long getAge() {
+        if (birthday == null) return 30;
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime datetime = LocalDateTime.of( birthday.getYear() , birthday.getMonthValue() , birthday.getDayOfMonth(), 0,0);
         Duration duration = Duration.between(now, datetime);
@@ -59,7 +59,15 @@ public class User implements UserDetails {
      * Базовое количество калорий для юзера на один день
      */
     public Double calcBase() {
-        return (9.99*weight+6.25*height-4.92*getAge())*1.2;
+        Double w = this.weight;
+        Double h = this.height;
+        Boolean s = this.sex;
+        if (w == null) w = 70.;
+        if (h == null) h = 170.;
+        if (s == null) s = false;
+        Double base = (9.99*w+6.25*h-4.92*getAge())*1.2;
+        if (s) return base;
+        return base-161;
     }
 
     @Override

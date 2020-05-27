@@ -19,7 +19,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class RationWrapper {
-    Integer id;
+    private Integer id;
     private List<Double> mileage = new ArrayList<>();
     private List<Double> masl = new ArrayList<>();
     private List<Double> totalRise = new ArrayList<>();

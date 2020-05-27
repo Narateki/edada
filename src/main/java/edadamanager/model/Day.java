@@ -23,19 +23,25 @@ public class Day {
     private Double masl; // metres above sea level
     private Double totalRise;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne()
     @JoinColumn(name = "breakfast_id")
     private Recipe breakfast;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne()
     @JoinColumn(name = "lunch_id")
     private Recipe lunch;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne()
     @JoinColumn(name = "dinner_id")
     private Recipe dinner;
 
     public Double calcCaloryCoeff() {
         return (1+mileage/60)*(1+masl/10000)*(1+0.05*totalRise/200);
+    }
+
+    public Day(Double mileage, Double masl, Double totalRise) {
+        this.mileage = mileage;
+        this.masl = masl;
+        this.totalRise = totalRise;
     }
 }

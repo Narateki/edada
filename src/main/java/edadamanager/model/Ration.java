@@ -50,7 +50,7 @@ public class Ration {
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.ALL}, fetch = FetchType.EAGER)
-    private Set<Day> days = new HashSet<>();
+    private List<Day> days = new ArrayList<>();
 
     @Transient
     private Integer qdays = 0;
@@ -58,7 +58,7 @@ public class Ration {
     /**
      * Вычисление количества калорий на весь рацион
      */
-    private Double calcCalories() {
+    public Double calcCalories() {
         Double cal = 0.;
         for (Day day: days) {
             cal+=calcDayCalory(day);
@@ -70,12 +70,52 @@ public class Ration {
      * Вычисление количества калорий на день
      * @param day День для которого вычисляются калории
      */
-    private Double calcDayCalory(Day day) {
+    public Double calcDayCalory(Day day) {
         double cal = 0.;
         for (User user: users) {
             cal+=(user.calcBase()*day.calcCaloryCoeff());
         }
         return cal;
     }
+
+    /**
+     * Преобразование массива участников к строке
+     */
+    public String usersToString() {
+        StringBuilder s = new StringBuilder();
+        for (User a: users) {
+            s.append(a.toString());
+            s.append(", ");
+        }
+        if (s.length() <= 2) return "";
+        return s.substring(0, s.length()-2);
+    }
+
+    /**
+     * Преобразование массива инвентаря к строке
+     */
+    public String inventoriesToString() {
+        StringBuilder s = new StringBuilder();
+        for (Inventory inventory: inventories) {
+            s.append(inventory.toString());
+            s.append(", ");
+        }
+        if (s.length() <= 2) return "";
+        return s.substring(0, s.length()-2);
+    }
+
+    /**
+     * Преобразование массива ингредиетнов к строке
+     */
+    public String ingrToString() {
+        StringBuilder s = new StringBuilder();
+        for (Ingredient a: ingredients) {
+            s.append(a.toString());
+            s.append(", ");
+        }
+        if (s.length() <= 2) return "";
+        return s.substring(0, s.length()-2);
+    }
+
 
 }

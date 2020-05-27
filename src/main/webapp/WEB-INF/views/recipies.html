@@ -15,25 +15,41 @@
 <div th:replace="../views/header :: header"></div>
 
 <div class="container">
-    <h2 class="text-danger">Recipies</h2>
-    <table class="table">
-        <tbody>
-        <tr th:each="recipe:${recipes}">
-            <td th:text="${recipe.name}">
-            </td>
-            <td th:text="${recipe.description}">
-            </td>
-            <td th:text="${recipe.category}">
-            </td>
-            <td th:text="${recipe.ingredietsToString()}">
-            </td>
-            <td th:text="${recipe.inventoriesToString()}">
-            </td>
-            <td th:text="${recipe.getAvgRate()}">
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <h2 class="text-danger">Рецепты</h2>
+    <div class="row row-cols-1 row-cols-md-2">
+            <ul th:each ="recipe:${recipes}">
+                <div class="col mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="p-3 mb-2 bg-success text-white">
+                            <h5 class="card-title"> <td th:text="${recipe.name}"></h5>
+                        </div>
+                        <div class="p-3 mb-2  text-dark">
+                            <h6 class="card-header">Описание</h6>
+                            <td th:text="${recipe.description}"></td>
+                        </div>
+                        <div class="p-3 mb-2 text-dark">
+                            <h6 class="card-header">Категория</h6>
+                            <td th:text="${recipe.category}"></td>
+                        </div>
+                        <div class="p-3 mb-2 text-dark">
+                            <h6 class="card-header">Ингредиенты</h6>
+                            <td th:text="${recipe.ingredietsToString()}"></td>
+                        </div>
+                        <div class="p-3 mb-2 text-dark">
+                            <h6 class="card-header">Инвентарь</h6>
+                            <td th:text="${recipe.inventoriesToString()}"></td>
+                        </div>
+                        <div class="p-3 mb-2 text-dark">
+                            <h6 class="card-header">Калорийность</h6>
+                            <td th:text="${recipe.getAvgRate()}"></td>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </ul>
+        </div>
 </div>
+
 </body>
 </html>

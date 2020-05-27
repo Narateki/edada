@@ -56,7 +56,7 @@ $(document).ready(function () {
         event.preventDefault();
         let data = {
             "name": $("#name").val(),
-            "description": $("#name").val(),
+            "description": $("#description").val(),
             "category_id": $("#category").val(),
             "ingrs_id": [],
             "ingrs_q": [],

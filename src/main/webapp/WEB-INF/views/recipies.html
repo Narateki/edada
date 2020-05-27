@@ -16,35 +16,40 @@
 
 <div class="container">
     <h2 class="text-danger">Рецепты</h2>
-    <div class="card">
-        <div class="card-body">
+    <div class="row row-cols-1 row-cols-md-2">
             <ul th:each ="recipe:${recipes}">
-                <div class="p-3 mb-2 bg-success text-white">
-                    <h5 class="card-header"> <td th:text="${recipe.name}"></h5>
+                <div class="col mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="p-3 mb-2 bg-success text-white">
+                            <h5 class="card-title"> <td th:text="${recipe.name}"></h5>
+                        </div>
+                        <div class="p-3 mb-2  text-dark">
+                            <h6 class="card-header">Описание</h6>
+                            <td th:text="${recipe.description}"></td>
+                        </div>
+                        <div class="p-3 mb-2 text-dark">
+                            <h6 class="card-header">Категория</h6>
+                            <td th:text="${recipe.category}"></td>
+                        </div>
+                        <div class="p-3 mb-2 text-dark">
+                            <h6 class="card-header">Ингредиенты</h6>
+                            <td th:text="${recipe.ingredietsToString()}"></td>
+                        </div>
+                        <div class="p-3 mb-2 text-dark">
+                            <h6 class="card-header">Инвентарь</h6>
+                            <td th:text="${recipe.inventoriesToString()}"></td>
+                        </div>
+                        <div class="p-3 mb-2 text-dark">
+                            <h6 class="card-header">Калорийность</h6>
+                            <td th:text="${recipe.getAvgRate()}"></td>
+                        </div>
+                    </div>
                 </div>
-                <div class="p-3 mb-2 g-warning text-dark">
-                    <h6 class="card-header">Описание</h6>
                 </div>
-                <li th:text="${recipe.description}"></li>
-                <div class="p-3 mb-2 g-warning text-dark">
-                    <h6 class="card-header">Категория</h6>
-                </div>
-                <li th:text="${recipe.category}"></li>
-                <div class="p-3 mb-2 g-warning text-dark">
-                    <h6 class="card-header">Ингредиенты</h6>
-                </div>
-                <li th:text="${recipe.ingredietsToString()}"></li>
-                <div class="p-3 mb-2 g-warning text-dark">
-                    <h6 class="card-header">Инвентарь</h6>
-                </div>
-                <li th:text="${recipe.inventoriesToString()}"></li>
-                <div class="p-3 mb-2 g-warning text-dark">
-                    <h6 class="card-header">Калорийность</h6>
-                </div>
-                <li th:text="${recipe.getAvgRate()}"></li>
             </ul>
         </div>
-    </div>
 </div>
+
 </body>
 </html>

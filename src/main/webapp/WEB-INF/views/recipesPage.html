@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Все рецепты</title>
+    <title>Recipies</title>
     <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -16,7 +16,6 @@
 
 <div class="container">
     <h2 class="text-danger">Все рецепты</h2>
-
     <nav aria-label="Page navigation example">
         <ul class="pagination">
             <li class="page-item"><a class="page-link" href="#" th:if = "${page.number > 0 }" th:href="@{/recipies/findall(page=${page.number-1})}">Назад</a></li>
@@ -24,25 +23,40 @@
             <li class="page-item"><a class="page-link" href="#" th:if = "${page.number < page.totalPages - 1}" th:href="@{/recipies/findall(page=${page.number+1})}">Вперед</a></li>
         </ul>
     </nav>
-
-    <table class="table">
-        <tbody>
-        <tr th:each="recipe:${page.content}">
-            <td th:text="${recipe.name}">
-            </td>
-            <td th:text="${recipe.description}">
-            </td>
-            <td th:text="${recipe.category}">
-            </td>
-            <td th:text="${recipe.ingredietsToString()}">
-            </td>
-            <td th:text="${recipe.inventoriesToString()}">
-            </td>
-            <td th:text="${recipe.getAvgRate()}">
-            </td>
-        </tr>
-        </tbody>
-    </table>
+        <div class="row row-cols-1 row-cols-md-2">
+            <ul th:each ="recipe:${page.content}">
+                <div class="col mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="p-3 mb-2 bg-success text-white">
+                                <h5 class="card-title"> <td th:text="${recipe.name}"></h5>
+                            </div>
+                            <div class="p-3 mb-2  text-dark">
+                                <h6 class="card-header">Описание</h6>
+                                <td th:text="${recipe.description}"></td>
+                            </div>
+                            <div class="p-3 mb-2 text-dark">
+                                <h6 class="card-header">Категория</h6>
+                                <td th:text="${recipe.category}"></td>
+                            </div>
+                            <div class="p-3 mb-2 text-dark">
+                                <h6 class="card-header">Ингредиенты</h6>
+                                <td th:text="${recipe.ingredietsToString()}"></td>
+                            </div>
+                            <div class="p-3 mb-2 text-dark">
+                                <h6 class="card-header">Инвентарь</h6>
+                                <td th:text="${recipe.inventoriesToString()}"></td>
+                            </div>
+                            <div class="p-3 mb-2 text-dark">
+                                <h6 class="card-header">Калорийность</h6>
+                                <td th:text="${recipe.getAvgRate()}"></td>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
 </div>
 </body>
 </html>

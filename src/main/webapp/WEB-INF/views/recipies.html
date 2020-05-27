@@ -15,25 +15,36 @@
 <div th:replace="../views/header :: header"></div>
 
 <div class="container">
-    <h2 class="text-danger">Recipies</h2>
-    <table class="table">
-        <tbody>
-        <tr th:each="recipe:${recipes}">
-            <td th:text="${recipe.name}">
-            </td>
-            <td th:text="${recipe.description}">
-            </td>
-            <td th:text="${recipe.category}">
-            </td>
-            <td th:text="${recipe.ingredietsToString()}">
-            </td>
-            <td th:text="${recipe.inventoriesToString()}">
-            </td>
-            <td th:text="${recipe.getAvgRate()}">
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <h2 class="text-danger">Рецепты</h2>
+    <div class="card">
+        <div class="card-body">
+            <ul th:each ="recipe:${recipes}">
+                <div class="p-3 mb-2 bg-success text-white">
+                    <h5 class="card-header"> <td th:text="${recipe.name}"></h5>
+                </div>
+                <div class="p-3 mb-2 g-warning text-dark">
+                    <h6 class="card-header">Описание</h6>
+                </div>
+                <li th:text="${recipe.description}"></li>
+                <div class="p-3 mb-2 g-warning text-dark">
+                    <h6 class="card-header">Категория</h6>
+                </div>
+                <li th:text="${recipe.category}"></li>
+                <div class="p-3 mb-2 g-warning text-dark">
+                    <h6 class="card-header">Ингредиенты</h6>
+                </div>
+                <li th:text="${recipe.ingredietsToString()}"></li>
+                <div class="p-3 mb-2 g-warning text-dark">
+                    <h6 class="card-header">Инвентарь</h6>
+                </div>
+                <li th:text="${recipe.inventoriesToString()}"></li>
+                <div class="p-3 mb-2 g-warning text-dark">
+                    <h6 class="card-header">Калорийность</h6>
+                </div>
+                <li th:text="${recipe.getAvgRate()}"></li>
+            </ul>
+        </div>
+    </div>
 </div>
 </body>
 </html>

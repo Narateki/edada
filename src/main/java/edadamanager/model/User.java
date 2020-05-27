@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -28,10 +29,14 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Size(min=3, max=15)
     private String username;
 
     private String password;
+
+    @NotNull(message = "Вес не введен")
     private Double weight;
+    @NotNull(message = "Рост не введен")
     private Double height;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")

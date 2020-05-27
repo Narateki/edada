@@ -17,12 +17,12 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
     <S extends Recipe> S save(S entity);
 
     @Query(
-            "SELECT r from Recipe as r inner join r.ingredients as irr where irr.ingredient in :ingrSet "
+            "SELECT distinct r from Recipe as r join r.ingredients as irr where irr.ingredient in :ingrSet "
     )
     List<Recipe> searchAllByIngredients(@Param("ingrSet") Set<Ingredient> ingredientSet);
 
     @Query(
-            "SELECT r from Recipe as r inner join r.ingredients as irr inner join r.inventories as ivrr" +
+            "SELECT distinct r from Recipe as r inner join r.ingredients as irr inner join r.inventories as ivrr" +
                     " where irr.ingredient in :ingrSet and ivrr in :invSet"
     )
     List<Recipe> searchAllByParams(@Param("ingrSet") Set<Ingredient> ingredientSet, @Param("invSet") Set<Inventory> inventorySet);

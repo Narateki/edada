@@ -37,7 +37,7 @@
 
     <div th:each="day:${ration.getDays()}" class="form-group">
         <h5 class="text-dark" th:text="${dayStat.count}">День</h5>
-        <table class="table-bordered">
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th scope="col">Километраж, км</th>
@@ -55,6 +55,42 @@
                 </tr>
             </tbody>
         </table>
+        <br>
+        <div class="card-group">
+            <div class="card">
+                <div class="card-header">Завтрак</div>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${day.breakfast.name}">Завтрак</h5>
+                    <p class="card-text" th:text="${day.breakfast.toStringWithCalory(ration.calcMealCalory(day))}">Ингредиенты</p>
+                    <p class="card-text">
+                        <small class="text-muted" th:text="${ration.calcMealCalory(day)}"></small>
+                        <small class="text-muted"> ккал</small>
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">Обед</div>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${day.lunch.name}">Обед</h5>
+                    <p class="card-text" th:text="${day.lunch.toStringWithCalory(ration.calcMealCalory(day))}">Ингредиенты</p>
+                    <p class="card-text">
+                        <small class="text-muted" th:text="${ration.calcMealCalory(day)}"></small>
+                        <small class="text-muted"> ккал</small>
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">Ужин</div>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${day.dinner.name}">Ужин</h5>
+                    <p class="card-text" th:text="${day.dinner.toStringWithCalory(ration.calcMealCalory(day))}">Ингредиенты</p>
+                    <p class="card-text">
+                        <small class="text-muted" th:text="${ration.calcMealCalory(day)}"></small>
+                        <small class="text-muted"> ккал</small>
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 
 

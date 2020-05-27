@@ -75,7 +75,15 @@ public class Ration {
         for (User user: users) {
             cal+=(user.calcBase()*day.calcCaloryCoeff());
         }
-        return cal;
+        return (Math.round(cal * 100.0) / 100.0);
+    }
+
+    /**
+     * Вычисление количества калорий на прием пищи
+     * @param day День для которого вычисляются калории
+     */
+    public Double calcMealCalory(Day day) {
+        return (Math.round(calcDayCalory(day) / 3 * 100.0) / 100.0);
     }
 
     /**

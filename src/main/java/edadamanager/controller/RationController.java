@@ -80,7 +80,7 @@ public class RationController {
         List<Recipe> listR = recipeService.findRecipes(ration);
         List<Map<Integer, String>> recipesForDays = new ArrayList<>();
         for (Day d : ration.getDays()) {
-            Double dCalory = ration.calcDayCalory(d);
+            Double dCalory = ration.calcMealCalory(d);
             Map<Integer, String> mapR = new HashMap<>();
             for (Recipe r: listR) {
                 mapR.put(r.getId(), r.toStringWithCalory(dCalory));

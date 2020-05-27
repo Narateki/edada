@@ -85,7 +85,11 @@ $(document).ready(function () {
             cache: false,
             processData:false,
             success: function(resposeJsonObject){
-                alert("all good");
+                let container = $(".container");
+                container.remove();
+                let body = $("body");
+                let h3 = $("<h3>", {"text":"Рецепт успешно добавлен.", "class":"text-success"});
+                body.append(h3);
             }
         });
 

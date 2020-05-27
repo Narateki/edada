@@ -32,7 +32,7 @@ public class HomeController {
 
     @RequestMapping(value = "/")
     public String home(Model model) {
-        model.addAttribute("title", "Сайт с рецептами приветствует вас!");
+        model.addAttribute("title", "Сайт с рецептами для туристов приветствует вас!");
 //        Recipe recipe = new Recipe("rec9");
 //        recipeService.save(recipe);
 //        Category category1 = new Category("Суп");
@@ -81,5 +81,10 @@ public class HomeController {
         return "home";
     }
 
+    @RequestMapping("/errors")
+    public String errors(Model model){
+        model.addAttribute("code", "Такой страницы не существует!");
+        return "errors";
+    }
 }
 

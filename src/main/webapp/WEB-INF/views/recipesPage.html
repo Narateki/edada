@@ -13,48 +13,53 @@
 <body>
 
 <div th:replace="../views/header :: header"></div>
-
-<div class="container">
-    <h2 class="text-danger">Все рецепты</h2>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#" th:if = "${page.number > 0 }" th:href="@{/recipies/findall(page=${page.number-1})}">Назад</a></li>
-            <li class="page-item"><a class="page-link" href="#" th:text="''+${page.number+1}+' из '+${page.totalPages}">1</a></li>
-            <li class="page-item"><a class="page-link" href="#" th:if = "${page.number < page.totalPages - 1}" th:href="@{/recipies/findall(page=${page.number+1})}">Вперед</a></li>
-        </ul>
-    </nav>
-        <div class="row row-cols-1 row-cols-md-2">
-            <ul th:each ="recipe:${page.content}">
-                <div class="col mb-4">
-                    <div class="card">
-                        <div class="card-header bg-success text-white" th:text="${recipe.name}">Рецепт</div>
-                        <div class="card-body">
-                            <div class="p-3 mb-2  text-dark">
-                                <h6 class="card-header">Описание</h6>
-                                <td th:text="${recipe.description}"></td>
-                            </div>
-                            <div class="p-3 mb-2 text-dark">
-                                <h6 class="card-header">Категория</h6>
-                                <td th:text="${recipe.category}"></td>
-                            </div>
-                            <div class="p-3 mb-2 text-dark">
-                                <h6 class="card-header">Ингредиенты</h6>
-                                <td th:text="${recipe.ingredietsToString()}"></td>
-                            </div>
-                            <div class="p-3 mb-2 text-dark">
-                                <h6 class="card-header">Инвентарь</h6>
-                                <td th:text="${recipe.inventoriesToString()}"></td>
-                            </div>
-                            <div class="p-3 mb-2 text-dark">
-                                <h6 class="card-header">Калорийность</h6>
-                                <td th:text="${recipe.getAvgRate()}"></td>
+    <div class="container">
+        <h2 class="text-danger">Все рецепты</h2>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#" th:if = "${page.number > 0 }" th:href="@{/recipies/findall(page=${page.number-1})}">Назад</a></li>
+                <li class="page-item"><a class="page-link" href="#" th:text="''+${page.number+1}+' из '+${page.totalPages}">1</a></li>
+                <li class="page-item"><a class="page-link" href="#" th:if = "${page.number < page.totalPages - 1}" th:href="@{/recipies/findall(page=${page.number+1})}">Вперед</a></li>
+            </ul>
+        </nav>
+            <div class="row row-cols-1 row-cols-md-2">
+                <ul th:each ="recipe:${page.content}">
+                    <div class="col mb-4">
+                        <div class="card">
+                            <div class="card-header bg-success text-white" th:text="${recipe.name}">Рецепт</div>
+                            <div class="card-body">
+                                <div class="p-3 mb-2  text-dark">
+                                    <h6 class="card-header">Описание</h6>
+                                    <td th:text="${recipe.description}"></td>
+                                </div>
+                                <div class="p-3 mb-2 text-dark">
+                                    <h6 class="card-header">Категория</h6>
+                                    <td th:text="${recipe.category}"></td>
+                                </div>
+                                <div class="p-3 mb-2 text-dark">
+                                    <h6 class="card-header">Ингредиенты</h6>
+                                    <td th:text="${recipe.ingredietsToString()}"></td>
+                                </div>
+                                <div class="p-3 mb-2 text-dark">
+                                    <h6 class="card-header">Инвентарь</h6>
+                                    <td th:text="${recipe.inventoriesToString()}"></td>
+                                </div>
+                                <div class="p-3 mb-2 text-dark">
+                                    <h6 class="card-header">Калорийность</h6>
+                                    <td th:text="${recipe.calcCalory()}"></td>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </ul>
+            </div>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#" th:if = "${page.number > 0 }" th:href="@{/recipies/findall(page=${page.number-1})}">Назад</a></li>
+                <li class="page-item"><a class="page-link" href="#" th:text="''+${page.number+1}+' из '+${page.totalPages}">1</a></li>
+                <li class="page-item"><a class="page-link" href="#" th:if = "${page.number < page.totalPages - 1}" th:href="@{/recipies/findall(page=${page.number+1})}">Вперед</a></li>
             </ul>
-        </div>
+        </nav>
     </div>
-</div>
 </body>
 </html>

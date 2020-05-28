@@ -33,4 +33,9 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
     Set<Recipe> findAllByIdIn(@Param( "ids" ) Set<Integer> ids );
 
     List<Recipe> findAllByIdIn(@Param( "ids" ) List<Integer> ids );
+
+    Recipe findById(@Param( "id" ) Integer id );
+
+    @Query("SELECT count(r) from Recipe as r")
+    Integer countAll();
 }

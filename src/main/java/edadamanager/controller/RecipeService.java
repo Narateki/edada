@@ -73,4 +73,19 @@ public class RecipeService {
     public List<Recipe> findRecipes(Ration ration) {
         return recipeRepository.searchAllByParams(ration.getIngredients(), ration.getInventories());
     }
+
+    public Recipe getRandom() {
+        Integer count = recipeRepository.countAll();
+        int idx = rnd(1,count);
+        return recipeRepository.findById(idx);
+    }
+
+    /**
+     * Метод получения псевдослучайного целого числа от min до max (включая max);
+     */
+    public static int rnd(int min, int max)
+    {
+        max -= min;
+        return (int) (Math.random() * ++max) + min;
+    }
 }

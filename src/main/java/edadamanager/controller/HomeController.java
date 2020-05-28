@@ -33,6 +33,7 @@ public class HomeController {
     @RequestMapping(value = "/")
     public String home(Model model) {
         model.addAttribute("title", "Сайт с рецептами для туристов приветствует вас!");
+        model.addAttribute("recipe", recipeService.getRandom());
 //        Recipe recipe = new Recipe("rec9");
 //        recipeService.save(recipe);
 //        Category category1 = new Category("Суп");
